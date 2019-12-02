@@ -1,24 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react';
+import Toast from './components/Toast';
+
 import './App.css';
 
+
 function App() {
+
+  const [msgHeader, setMsgHeader] = useState('');
+  const [msgBody, setMsgBody] = useState('');
+  const [status, setStatus] = useState('');
+
+  const [activarMsg, setActivarMsg] = useState('');
+
+  useEffect(() => {
+    setMsgHeader('Título Cabecera');
+    setMsgBody('Contenido');
+    setStatus('success');
+    setActivarMsg(false);
+  }, []);
+
+  const resetMsg = value => {
+    console.log(value);
+    setActivarMsg(value);
+  };
+
+  // const onMessage = () => {
+
+  // }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="box">
+
+      <button onClick={() => setActivarMsg(!activarMsg)}>Activar Mensaje</button>
+
+      {activarMsg ? (
+        <Toast
+        msgHeader={msgHeader}
+        msgBody={msgBody}
+        status={status}
+        resetMsg={resetMsg}
+        />
+      ) : null}
     </div>
   );
 }
